@@ -1,0 +1,32 @@
+<h1>Add Item</h1>
+<form (submit)= "addMenu()">
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Item name</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="dal, rice, panner" [(ngModel)]= "menuname" name="menuname">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Half/Full</label>
+    <select class="form-control" id="exampleFormControlSelect1"  [(ngModel)]= "quantity" name="quantity">
+      <option>Half</option>
+      <option>Full</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Item Rate</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1"  [(ngModel)]= "rate" name="rate">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Add Menu</button>
+</form>
+<div class="container">
+  <div *ngFor="let menu of menus" class="row">
+    <div class="col-md-3">
+      <b>{{menu.menuname}}</b>
+    </div>
+    <div class="col-md-3">
+      <b>{{menu.quantity}}</b>
+    </div>
+    <div class="col-md-3">
+      <b>{{menu.rate}}</b>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="container">
+  <h2 class="page-header">Add</h2>
+  <form (submit) = "addTable()">
+    <div class="form-group">
+      <label>Add New Table</label>
+      <input type="text" [(ngModel)]="tablename" name="tablename" class="form-control">
+      {{tablename}}
+    </div>
+    <input type="submit" class="btn btn-success" value="add table">
+  </form>
+</div>
+
+
+<div class="container">
+   
+<mat-card class="demo-panel">
+  <mat-card-title>
+    Table Sidenav Form
+  </mat-card-title>
+  <mat-card-content>
+    <mat-sidenav-container class="example-container">
+      <mat-sidenav align="end" #sidenav class="example-sidenav">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form_main">
+              <h4 class="heading">
+                <strong>Quick </strong> Contact
+                <span></span>
+              </h4>
+              <div class="form">
+             
+                <mat-sidenav-container >
+                  <mat-sidenav  align="end" #sidenavmenu class="example-sidenav">
+                    hello menu
+              <div style="padding-left: 100px">
+                <input type="text" [(ngModel)]="term">
+                <div *ngFor="let menu of menus |filter:term" >
+                  <div class="row">
+                    <div class="col-md-3">
+                    {{menu.menuname}}
+                    </div>
+                    <div class="col-md-3">
+                    {{menu.quantity}}
+                    </div>
+                    <div class="col-md-3">
+                    {{menu.rate}}
+                    </div>
+                  </div>
+                </div>
+              
+              </div>
+                  </mat-sidenav>
+                  <div class="container">
+                      <form id="contactFrm" name="contactFrm" (submit)="addCustomer()">
+                        <input type="text" required="" [(ngModel)]="name" placeholder="Please input your Name" value="" name="name" class="txt"> {{name}}
+                        <input type="text" required="" [(ngModel)]="number" placeholder="Please input your mobile No" value="" name="mob" class="txt"> {{number}}
+                        <input type="text" required="" [(ngModel)]="email" placeholder="Please input your Email" value="" name="email" class="txt"> {{email}}
+                        <textarea placeholder="Your Message" name="mess" type="text" class="txt_3"></textarea>
+                        <div class="form-check">
+                          <label>
+                            <input type="checkbox" name="check">
+                            <span class="label-text">Option 03</span>
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <label>
+                            <input type="checkbox" name="check">
+                            <span class="label-text">Option 04</span>
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <label>
+                            <input type="checkbox" name="check">
+                            <span class="label-text">Option 04</span>
+                          </label>
+                        </div>
+                      
+                      </form>
+                    <input type="submit" value="submit" name="submit" class="txt2" md-button (click)="sidenavmenu.open()">
+                  </div>
+                </mat-sidenav-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </mat-sidenav>  
+      <div class="example-sidenav-content">
+        <div class="container">
+          <div *ngFor="let table of tables" class="row">
+            <div class="col-md-3">
+              <button type="button" md-button (click)="sidenav.open()">
+                Open Sidenav {{table.tablename}}
+              </button>
+            </div>
+            <div class="col-md-3">
+              <input type="button" (click)="deleteTable(table._id)" value="Delete" class="btn btn-danger">
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-container>
+  </mat-card-content>
+</mat-card>
+
+
+</div>

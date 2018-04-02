@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Customers</h1>
+  <div *ngFor="let customer of customers" class="row">
+    <div class="col-md-3">
+      <b>{{customer.name}}</b>
+    </div>
+    <div class="col-md-3">
+      <b>{{customer.number}}</b>
+    </div>
+    <div class="col-md-3">
+      <b>{{customer.email}}</b>
+    </div>
+
+  </div>
+</div>
