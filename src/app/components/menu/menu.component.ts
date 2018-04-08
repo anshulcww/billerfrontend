@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {MenuService} from '../../services/menu.service';
 import {Menu} from '../../services/menu'
 
@@ -14,6 +14,9 @@ export class MenuComponent implements OnInit {
 menuname: string;
 quantity: string;
 rate:string;
+
+
+
   constructor(private menuService: MenuService) { }
 addMenu(){
   console.log("anshul");

@@ -22,7 +22,7 @@
       <mat-sidenav align="end" #sidenav class="example-sidenav">
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-8">
             <div class="form_main">
               <h4 class="heading">
                 <strong>Quick </strong> Contact
@@ -32,8 +32,9 @@
              
                 <mat-sidenav-container >
                   <mat-sidenav  align="end" #sidenavmenu class="example-sidenav">
-                    hello menu
-              <div style="padding-left: 100px">
+                    hello menu 
+
+              <div>
                 <input type="text" [(ngModel)]="term">
                 <div *ngFor="let menu of menus |filter:term" >
                   <div class="row">
@@ -41,10 +42,19 @@
                     {{menu.menuname}}
                     </div>
                     <div class="col-md-3">
-                    {{menu.quantity}}
+                    {{menu.rate}}
+                    </div>
+                    <div class="col-md-3 form-group">
+                    <mat-form-field style="width: 100%">
+                      <mat-select placeholder="Quantity" >
+                        <mat-option *ngFor="let quantity of quantities" [value]="quantity.value">
+                          {{ quantity.viewValue }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                     </div>
                     <div class="col-md-3">
-                    {{menu.rate}}
+                     <input type="button" (click)="addItemToBill(menu.menuname)" value="Add" class="btn btn-info">
                     </div>
                   </div>
                 </div>
@@ -52,7 +62,7 @@
               </div>
                   </mat-sidenav>
                   <div class="container">
-                      <form id="contactFrm" name="contactFrm" (submit)="addCustomer()">
+                      <form id="contactFrm" name="contactFrm">
                         <input type="text" required="" [(ngModel)]="name" placeholder="Please input your Name" value="" name="name" class="txt"> {{name}}
                         <input type="text" required="" [(ngModel)]="number" placeholder="Please input your mobile No" value="" name="mob" class="txt"> {{number}}
                         <input type="text" required="" [(ngModel)]="email" placeholder="Please input your Email" value="" name="email" class="txt"> {{email}}
@@ -77,7 +87,8 @@
                         </div>
                       
                       </form>
-                    <input type="submit" value="submit" name="submit" class="txt2" md-button (click)="sidenavmenu.open()">
+                    <input type="submit" value="Add customer" name="submit" class="txt2" md-button  (click)="addCustomer()">
+                    <button type="click" value="menu" name="submit" class="txt2" md-button  (click)="sidenavmenu.open()">menu</button>
                   </div>
                 </mat-sidenav-container>
               </div>
@@ -103,6 +114,4 @@
     </mat-sidenav-container>
   </mat-card-content>
 </mat-card>
-
-
 </div>

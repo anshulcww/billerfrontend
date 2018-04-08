@@ -1,0 +1,19 @@
+<div class="container">
+    <h1>Billing...</h1>
+    <hr>
+    <div class="row">
+        <div></div>
+    </div>
+    <div *ngFor="let item of items" class="row">
+        <div class="col-md-3">
+            <b>{{item.itemname}}</b>
+        </div>
+        <div class="col-md-3">
+            <b>{{item.quantity}}</b>
+        </div>
+        <div class="col-md-3">
+            <b>{{item.rate}}</b>
+        </div>
+
+    </div>
+</div>

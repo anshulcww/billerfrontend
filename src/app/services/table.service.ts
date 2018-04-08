@@ -8,6 +8,10 @@ export class TableService {
 
   constructor(private http: Http) { }
 //retrieving items
+getItems(){
+  return this.http.get('http://localhost:3000/api/items')
+    .map(res => res.json());
+}
 getMenu(){
   return this.http.get('http://localhost:3000/api/menus')
     .map(res => res.json());
@@ -21,6 +25,16 @@ getMenu(){
     return this.http.get('http://localhost:3000/api/customers')
       .map(res => res.json());
   }
+  getCustomer(id){
+    return this.http.get('http://localhost:3000/api/customers/' + id )
+      .map(res => res.json());
+  }
+  addItemToBill(newItem) {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/api/items', newItem, { headers: headers })
+      .map(res => res.json());
+  }
   
   //addtable method
   addTable(newTable) {
@@ -28,8 +42,6 @@ getMenu(){
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/api/tables', newTable, { headers: headers })
       .map(res => res.json());
-
-  
   }
   addCustomer(newCustomer){
     console.log("asfas")

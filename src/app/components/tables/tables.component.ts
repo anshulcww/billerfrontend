@@ -4,6 +4,7 @@ import {Table} from '../../services/table'
 import { CustomerService } from '../../services/customer.service';
 import { Customer } from '../../services/customer'
 import { Menu } from '../../services/menu'
+import { Item } from '../../services/item'
 
 @Component({
   selector: 'app-tables',
@@ -22,9 +23,34 @@ export class TablesComponent implements OnInit {
   number: string;
   showFiller = false;
   menus: Menu[];
-
+  quantities = [
+    { value: '1', viewValue: '1' },
+    { value: '2', viewValue: '2' },
+    { value: '3', viewValue: '3' }
+  ];
+  item:Item;
+  items:Item[] =[];
+  menuname:string;
+  quantity: string;
+  rate: string;
+  
   constructor(private tableService: TableService) { }
- 
+ addItemToBill(menuname: any){
+   console.log(menuname);
+   const newItem = {
+     menuname: this.menuname,
+     quantity: this.quantity,
+     rate: this.rate
+   }
+   this.tableService.addItemToBill(newItem)
+   .subscribe(item => {
+     this.items.push(item);
+     this.tableService.getItems()
+     .subscribe(items =>
+    this.items = items)
+   })
+   console.log(newItem);
+ }
   addTable(){
     const newTable = {
       tablename: this.tablename
@@ -38,7 +64,6 @@ export class TablesComponent implements OnInit {
     });
   }
   addCustomer() {
-    console.log("customer");
     const newCustomer = {
       name: this.name,
       email: this.email,
@@ -47,11 +72,15 @@ export class TablesComponent implements OnInit {
     this.tableService.addCustomer(newCustomer)
     .subscribe(customer => {
       this.customers.push(customer);
+      this.tableService.getCustomer(customer._id)
+      .subscribe(c1 =>
+       this.customer= c1);
       this.tableService.getCustomers()
       .subscribe(customers => 
       this.customers = customers)
     });
     console.log(newCustomer);
+    
     
   }
   deleteTable(id:any){
@@ -80,7 +109,6 @@ export class TablesComponent implements OnInit {
     this.tableService.getMenu()
       .subscribe(menus =>
         this.menus = menus);
-      console.log(this.menus)
   }
 
 
