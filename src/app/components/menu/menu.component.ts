@@ -12,7 +12,6 @@ export class MenuComponent implements OnInit {
   menus: Menu[];
   menu: Menu;
 menuname: string;
-quantity: string;
 rate:string;
 
 
@@ -22,19 +21,18 @@ addMenu(){
   console.log("anshul");
   const newMenu = {
     menuname: this.menuname,
-    quantity: this.quantity,
     rate: this.rate,
   }
   this.menuService.addMenu(newMenu)
     .subscribe(menu => {
       this.menus.push(menu);
-      this.menuService.getMenu()
+      this.menuService.getMenus()
         .subscribe(menus=>
           this.menus= menus)
     });
 }
   ngOnInit() {
-    this.menuService.getMenu()
+    this.menuService.getMenus()
       .subscribe(menus =>
         this.menus = menus)
   }

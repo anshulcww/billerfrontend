@@ -32,32 +32,47 @@
              
                 <mat-sidenav-container >
                   <mat-sidenav  align="end" #sidenavmenu class="example-sidenav">
-                    hello menu 
-
-              <div>
-                <input type="text" [(ngModel)]="term">
-                <div *ngFor="let menu of menus |filter:term" >
-                  <div class="row">
-                    <div class="col-md-3">
-                    {{menu.menuname}}
-                    </div>
-                    <div class="col-md-3">
-                    {{menu.rate}}
-                    </div>
-                    <div class="col-md-3 form-group">
-                    <mat-form-field style="width: 100%">
-                      <mat-select placeholder="Quantity" >
-                        <mat-option *ngFor="let quantity of quantities" [value]="quantity.value">
-                          {{ quantity.viewValue }}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                     <input type="button" (click)="addItemToBill(menu.menuname)" value="Add" class="btn btn-info">
-                    </div>
+                          
+               
+              <div class="container">
+                <mat-sidenav-container>
+                  <mat-sidenav align="end" #bill class="examples-sidenav">
+                       {{customer | json}}
+                       <br>
+                       <hr>
+                       <br>
+                       {{menu | json}}
+                  </mat-sidenav>
+                  <div class="container">
+                     hello menu
+                      <input type="text" [(ngModel)]="term">
+                      <div *ngFor="let menu of menus |filter:term">
+                        <div class="row">
+                          <div class="col-md-3">
+                            {{menu.menuname}}
+                          </div>
+                          <div class="col-md-3">
+                            {{menu.rate}}
+                          </div>
+                          <div class="col-md-3 form-group">
+                            <mat-form-field style="width: 100%">
+                              <mat-select placeholder="Quantity" >
+                                <mat-option *ngFor="let quantity of quantities" [value]="quantity.value">
+                                  {{ quantity.viewValue }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="button" (click)="addItemToBill(menu._id)" value="Add" class="btn btn-info">
+                          </div>
+                        </div>
+                      </div>
+                      <button type="button" md-button (click)="bill.open()">
+                        Checkout
+                      </button>
                   </div>
-                </div>
+                </mat-sidenav-container>
               
               </div>
                   </mat-sidenav>
@@ -85,10 +100,8 @@
                             <span class="label-text">Option 04</span>
                           </label>
                         </div>
-                      
                       </form>
-                    <input type="submit" value="Add customer" name="submit" class="txt2" md-button  (click)="addCustomer()">
-                    <button type="click" value="menu" name="submit" class="txt2" md-button  (click)="sidenavmenu.open()">menu</button>
+                    <input type="submit" value="Add customer" name="submit" class="txt2" md-button  (click)="addCustomer(); sidenavmenu.open()">
                   </div>
                 </mat-sidenav-container>
               </div>

@@ -4,7 +4,7 @@ import {Table} from '../../services/table'
 import { CustomerService } from '../../services/customer.service';
 import { Customer } from '../../services/customer'
 import { Menu } from '../../services/menu'
-import { Item } from '../../services/item'
+
 
 @Component({
   selector: 'app-tables',
@@ -23,34 +23,13 @@ export class TablesComponent implements OnInit {
   number: string;
   showFiller = false;
   menus: Menu[];
+  menu: Menu;
   quantities = [
     { value: '1', viewValue: '1' },
     { value: '2', viewValue: '2' },
     { value: '3', viewValue: '3' }
   ];
-  item:Item;
-  items:Item[] =[];
-  menuname:string;
-  quantity: string;
-  rate: string;
-  
   constructor(private tableService: TableService) { }
- addItemToBill(menuname: any){
-   console.log(menuname);
-   const newItem = {
-     menuname: this.menuname,
-     quantity: this.quantity,
-     rate: this.rate
-   }
-   this.tableService.addItemToBill(newItem)
-   .subscribe(item => {
-     this.items.push(item);
-     this.tableService.getItems()
-     .subscribe(items =>
-    this.items = items)
-   })
-   console.log(newItem);
- }
   addTable(){
     const newTable = {
       tablename: this.tablename
@@ -73,15 +52,18 @@ export class TablesComponent implements OnInit {
     .subscribe(customer => {
       this.customers.push(customer);
       this.tableService.getCustomer(customer._id)
-      .subscribe(c1 =>
-       this.customer= c1);
+      .subscribe(customer =>
+       this.customer= customer);
       this.tableService.getCustomers()
       .subscribe(customers => 
       this.customers = customers)
     });
-    console.log(newCustomer);
-    
-    
+  }
+  addItemToBill(id: any){
+  console.log(id);
+  this.tableService.getMenu(id)
+  .subscribe(menu =>
+  this.menu = menu)
   }
   deleteTable(id:any){
     var tables = this.tables;
@@ -106,7 +88,7 @@ export class TablesComponent implements OnInit {
    this.tableService.getTables()
     .subscribe( tables => 
     this.tables = tables);
-    this.tableService.getMenu()
+    this.tableService.getMenus()
       .subscribe(menus =>
         this.menus = menus);
   }

@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { ItemComponent } from './components/item/item.component';
 import { TablesComponent } from './components/tables/tables.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule, MatButtonModule, MatIconModule, MatCardModule, MatSidenavModule , MatSelectModule} from '@angular/material';
@@ -19,7 +18,6 @@ const appRoutes: Routes = [
   { path: '', component: TablesComponent },
   { path: 'customers', component: CustomerComponent },
   { path: 'menu', component: MenuComponent },
-  { path: 'items', component: ItemComponent },
 ]
 @NgModule({
   declarations: [
@@ -27,7 +25,6 @@ const appRoutes: Routes = [
     TablesComponent,
     CustomerComponent,
     MenuComponent,
-    ItemComponent
   ],
   imports: [
     HttpModule,

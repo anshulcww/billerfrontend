@@ -9,7 +9,7 @@ export class MenuService {
     constructor(private http: Http){}
 
     //retrieving menu items
-    getMenu(){
+    getMenus(){
         return this.http.get('http://localhost:3000/api/menus')
         .map(res => res.json());
     }

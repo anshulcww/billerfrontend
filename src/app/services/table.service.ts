@@ -12,8 +12,12 @@ getItems(){
   return this.http.get('http://localhost:3000/api/items')
     .map(res => res.json());
 }
-getMenu(){
+getMenus(){
   return this.http.get('http://localhost:3000/api/menus')
+    .map(res => res.json());
+}
+getMenu(id){
+  return this.http.get('http://localhost:3000/api/menus/' + id)
     .map(res => res.json());
 }
   //retrieving tables
@@ -29,12 +33,8 @@ getMenu(){
     return this.http.get('http://localhost:3000/api/customers/' + id )
       .map(res => res.json());
   }
-  addItemToBill(newItem) {
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/items', newItem, { headers: headers })
-      .map(res => res.json());
-  }
+ 
+
   
   //addtable method
   addTable(newTable) {
@@ -44,9 +44,6 @@ getMenu(){
       .map(res => res.json());
   }
   addCustomer(newCustomer){
-    console.log("asfas")
-    console.log(newCustomer);
-    
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/api/customers', newCustomer, { headers: headers })
