@@ -4,6 +4,8 @@ import {Table} from '../../services/table'
 import { CustomerService } from '../../services/customer.service';
 import { Customer } from '../../services/customer'
 import { Menu } from '../../services/menu'
+import {Bill} from '../../services/table'
+import {BillItem} from '../../services/table'
 
 
 @Component({
@@ -24,23 +26,58 @@ export class TablesComponent implements OnInit {
   showFiller = false;
   menus: Menu[];
   menu: Menu;
-  quantities = [
-    { value: '1', viewValue: '1' },
-    { value: '2', viewValue: '2' },
-    { value: '3', viewValue: '3' }
-  ];
+  bill: Bill ;
+  selectedQuantity: string = '';
+  totalAmount;
   constructor(private tableService: TableService) { }
-  addTable(){
+
+  selectChangeHandler(event: any){
+    this.selectedQuantity = event.target.value;
+  }
+  addItemToBill(id: any, rate: any, quantity: any) {
+    const billItem : BillItem = {
+      "menuId": id,
+      "quantity": quantity,
+      "amount": rate*quantity,
+    }
+    this.bill.billItems.push(billItem)
+    console.log(billItem);
+    this.tableService.getMenu(id)
+      .subscribe(menu =>
+        this.menu = menu)
+  }
+  checkOut(): void {
+/*     if (this.bill.billItems.length > 0) {
+      forEach(let billItem in this.bill.billItems)
+        this.bill.billAmount = this.bill.billAmount + billItem.amount;
+     
+       */
+
+  /*     this.bill.customerId = ;
+      this.bill.tabelId = ;
+      this.bill.billingDateTime = new Date();
+      this.bill.waiterId = ;
+
+      this.billApi.post(this.bill).subscribe(bill => {
+        console.log('Please pay : ' + bill.amount);
+        console.log('Thanks Mr  : ' + bill.customerId);
+
+      });
+
+    } */
+  }
+
+  addTable() {
     const newTable = {
       tablename: this.tablename
     }
     this.tableService.addTable(newTable)
-    .subscribe(table => {
-      this.tables.push(table);
-      this.tableService.getTables()
-        .subscribe(tables =>
-          this.tables = tables)
-    });
+      .subscribe(table => {
+        this.tables.push(table);
+        this.tableService.getTables()
+          .subscribe(tables =>
+            this.tables = tables)
+      });
   }
   addCustomer() {
     const newCustomer = {
@@ -49,22 +86,22 @@ export class TablesComponent implements OnInit {
       number: this.number,
     }
     this.tableService.addCustomer(newCustomer)
-    .subscribe(customer => {
-      this.customers.push(customer);
-      this.tableService.getCustomer(customer._id)
-      .subscribe(customer =>
-       this.customer= customer);
-      this.tableService.getCustomers()
-      .subscribe(customers => 
-      this.customers = customers)
-    });
+      .subscribe(customer => {
+        this.customers.push(customer);
+        this.tableService.getCustomer(customer._id)
+          .subscribe(customer =>
+            this.customer = customer);
+        this.tableService.getCustomers()
+          .subscribe(customers =>
+            this.customers = customers)
+      });
   }
-  addItemToBill(id: any){
-  console.log(id);
-  this.tableService.getMenu(id)
-  .subscribe(menu =>
-  this.menu = menu)
-  }
+
+
+
+ 
+
+ 
   deleteTable(id:any){
     var tables = this.tables;
     this.tableService.deleteTable(id)
@@ -84,7 +121,9 @@ export class TablesComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.bill = new Bill();
+    this.bill.billItems =[];
+    this.totalAmount;
    this.tableService.getTables()
     .subscribe( tables => 
     this.tables = tables);

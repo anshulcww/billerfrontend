@@ -42,11 +42,12 @@
                        <hr>
                        <br>
                        {{menu | json}}
+                       
                   </mat-sidenav>
                   <div class="container">
                      hello menu
                       <input type="text" [(ngModel)]="term">
-                      <div *ngFor="let menu of menus |filter:term">
+                  <div *ngFor="let menu of menus |filter:term; let index = index;trackBy:trackByIndex;">
                         <div class="row">
                           <div class="col-md-3">
                             {{menu.menuname}}
@@ -55,20 +56,25 @@
                             {{menu.rate}}
                           </div>
                           <div class="col-md-3 form-group">
-                            <mat-form-field style="width: 100%">
-                              <mat-select placeholder="Quantity" >
-                                <mat-option *ngFor="let quantity of quantities" [value]="quantity.value">
-                                  {{ quantity.viewValue }}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
+                            <select name="quantity" id="quan" (change) = "selectChangeHandler($event)">
+                              <option value="0">0</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>
+                            <p>
+                              <span>You Selected: </span>
+                              <b>{{selectedQuantity[index]}}</b>
+                            </p>
                           </div>
                           <div class="col-md-3">
-                            <input type="button" (click)="addItemToBill(menu._id)" value="Add" class="btn btn-info">
+                            <input type="button" (click)="addItemToBill(menu._id,menu.rate, selectedQuantity)" value="Add" class="btn btn-info">
                           </div>
+                      <div *ngFor = "let billItem of billItems">{{billItem}}</div>
+
                         </div>
                       </div>
-                      <button type="button" md-button (click)="bill.open()">
+                      <button type="button" md-button (click)="bill.open(); checkout()">
                         Checkout
                       </button>
                   </div>

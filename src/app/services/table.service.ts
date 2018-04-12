@@ -35,7 +35,9 @@ getMenu(id){
   }
  
 
-  
+  addQuantity(){
+    console.log("quantity");
+  }
   //addtable method
   addTable(newTable) {
     var headers = new Headers();
@@ -43,6 +45,10 @@ getMenu(id){
     return this.http.post('http://localhost:3000/api/tables', newTable, { headers: headers })
       .map(res => res.json());
   }
+  addAmount(newAmount){
+    console.log(newAmount);
+  }
+ 
   addCustomer(newCustomer){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -50,7 +56,13 @@ getMenu(id){
       .map(res => res.json());
 
   }
- 
+ addBillItem(billItem){
+   var headers = new Headers();
+   headers.append('Content-Type', 'application/json');
+   return this.http.post('http://localhost:3000/api/customers', billItem, { headers: headers })
+     .map(res => res.json());
+
+ }
   deleteTable(id) {
 
     return this.http.delete('http://localhost:3000/api/tables/' + id)
